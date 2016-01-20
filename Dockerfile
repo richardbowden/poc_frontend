@@ -1,9 +1,13 @@
 FROM ubuntu:14.04
 
-ADD https://github.com/richardbowden/poc_frontend/releases/download/v0.0.1/poc_frontend_linux_amd64 /poc/poc_front_linux_amd64
+ENV PORT 8080
 
-RUN chmod +x /poc/poc_front_linux_amd64
+ADD frontend-svc-* /poc/frontend-svc
 
-EXPOSE 8080 8080
+RUN chmod +x /poc/frontend-svc
 
-ENTRYPOINT ["/poc/poc_front_linux_amd64"]
+EXPOSE ${PORT}
+
+ADD docker-entrypoint.sh /docker-entrypoint.sh
+
+CMD /docker-entrypoint.sh
